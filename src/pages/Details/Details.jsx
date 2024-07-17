@@ -30,17 +30,20 @@ export default function Details() {
 
   return (
     <>
-      <div className="container mx-auto py-10 grid grid-cols-1 lg:grid-cols-2 gap-10 justify-center items-center">
-        <div className="card">
-          <div className="h-96 overflow-hidden rounded-xl group">
-            <img
-              src={recipeDetailsData?.recipe?.image_url}
-              alt=""
-              className="w-full object-cover h-full block group-hover:scale-105 duration-300"
-            />
-          </div>
-          <div className="flex flex-row gap-10 justify-center items-center mt-3">
-            <div>
+      <div className="container mx-auto">
+        <h1 className="text-center my-4 text-black font-bold">
+          Food Recipe Details
+        </h1>
+        <div className="lg:flex lg:flex-col-2 justify-center items-center gap-20 bg-orange-100 shadow-orange-300 p-6 rounded-md">
+          <div>
+            <div className="h-80 overflow-hidden rounded-xl group lg:w-80">
+              <img
+                src={recipeDetailsData?.recipe?.image_url}
+                alt=""
+                className="w-full object-cover h-full block group-hover:scale-105 duration-300"
+              />
+            </div>
+            <div className="my-4 text-center">
               <span className="text-sm text-cyan-700 font-medium">
                 {recipeDetailsData?.recipe?.publisher}
               </span>
@@ -48,39 +51,48 @@ export default function Details() {
                 {recipeDetailsData?.recipe?.title}
               </h2>
             </div>
+          </div>
+          <div className="text-center">
             <button
               onClick={() => handleAddToFavorite(recipeDetailsData?.recipe)}
-              className="p-3 px-8 rounded-lg  text-sm uppercase font-medium tracking-wider mt-3 inline-block shadow-md bg-red-200 text-white"
+              className="p-3 px-8 rounded-lg  text-sm uppercase font-bold tracking-wider shadow-md bg-red-300 text-white"
             >
               {favoritesList &&
               favoritesList.length &&
               favoritesList.findIndex(
                 (item) => item.id === recipeDetailsData?.recipe?.id
               ) !== -1 ? (
-                <i className="fa fa-heart text-red-600 text-2xl"></i>
+                <span className="">
+                  Remove From Favorites
+                  <i className="fa fa-heart text-red-600 ml-3 text-xl"></i>
+                </span>
               ) : (
-                <i className="fa fa-heart"></i>
+                <span>
+                  Add To Favorites
+                  <i className="fa fa-heart ml-3"></i>
+                </span>
               )}
             </button>
+            <div>
+              <h2 className="text-3xl my-4 font-semibold text-black">
+                Ingredients:
+              </h2>
+              <ul className="flex flex-col gap-3">
+                {recipeDetailsData?.recipe?.ingredients.map(
+                  (ingredient, index) => (
+                    <li key={index}>
+                      <span className="font-semibold text-black">
+                        {ingredient.quantity} {ingredient.unit}
+                      </span>
+                      <span className="font-semibold text-black">
+                        {ingredient.description}
+                      </span>
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
           </div>
-        </div>
-        <div className="text-center">
-          <h2 className="text-3xl my-4 font-semibold text-black">
-            Ingredients:
-          </h2>
-          <ul className="flex flex-col gap-3 justify-center items-center">
-            {recipeDetailsData?.recipe?.ingredients.map((ingredient, index) => (
-              <li key={index}>
-                <span className="font-semibold text-black">
-                  {ingredient.quantity} {ingredient.unit}
-                </span>
-                <span> - </span>
-                <span className="font-semibold text-black">
-                  {ingredient.description}
-                </span>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </>

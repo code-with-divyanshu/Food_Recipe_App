@@ -7,6 +7,9 @@ export default function Favorites() {
 
   return (
     <>
+      <h1 className="text-center my-4 text-black font-bold">
+        Favorite Recipes Lists
+      </h1>
       <div className="py-8 container mx-auto flex flex-wrap justify-center gap-10">
         {favoritesList && favoritesList.length > 0 ? (
           favoritesList.map((item) => <RecipeItem item={item} />)
